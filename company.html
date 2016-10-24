@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html>
+
+<meta charset="UTF-8">
+   <head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		
+		<script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>		 
+		
+		<script type="text/javascript" src="js/company.js"></script> 
+		<link rel="stylesheet" href="css/company.css"> 
+		
+		<!-- Bootstrap-->
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<!--!END bootstrap-->
+		
+		<title>Company CoderIt</title>
+   </head>
+
+   <body>
+	
+   
+		<div class="wrapper">
+		
+			<div class="line1">
+				<div class="block1">
+					<div class="block-title"><div class="title">Total Companies</div></div>
+					<div class="circle" style="display:none;"> </div>
+					<div class="loader" ></div> <!-- loader block-->
+				</div>
+					
+				<div class="block2">
+					<div class="block-title"><div class="title">List of Companies</div></div>
+					<div class="wrapper-list_companies" style="display:none;">
+						<div class="list_companies" >
+							<ul class="ul-list_companies">
+								
+								
+							</ul>
+						</div>
+						
+					</div>	
+					<div class="loader" ></div> <!-- loader block-->
+				</div>
+			</div>
+			
+			
+			
+			<div class="describe-block" style="display:none;">
+				<div class="block-title descibe-title">
+					<div class="title">Company Partner </div>
+					<div class="describe-controle" >
+						<div class="sort-describe-div ">
+							<div class="my-bold">Sort by:</div> 
+							
+							<div class="sort-name"> 
+								<a href="#0" class="name-sort-group" id="name-sort-group">
+								  <input type="checkbox" id="stateInput">
+								  <label for="stateInput" class="arrows">Name</label>
+								</a>
+							</div>
+							
+							<div class="sort-percentage"> 
+								<a href="#0" class="name-sort-group" id="name-sort-group">
+								  <input type="checkbox" id="stateInputPercent">
+								  <label for="stateInputPercent" class="arrows">Percentage</label>
+								</a>
+							</div>
+							
+						</div>
+						<div class="" onClick="hideBlock();return false;" >X</div>  
+					</div >
+				</div>
+				<div class="describe-main">	
+					
+						
+				</div>	
+			</div>	
+				
+				
+				
+			<div class="line2">
+				<div class="block3">
+					<div class="block-title"><div class="title">Companies by Location</div></div>
+					
+					<div class="loader" ></div> <!-- loader block-->
+				</div>
+				
+				<div class="block4">
+					<div class="block-title"><div class="title">News</div></div>
+					<div class="loader" ></div> <!-- loader block-->
+					<div class="block4_main"> 
+						<div class="block4_main-content">
+							<div class="block4-left">
+								<div class="news-photo">
+									<img src="" class="news-img" width="172" height="130" >
+								</div>
+								<span class="news-author my-bold">Author: <span class="this-author"></span> </span>
+								<span class="news-public my-bold">Public: <span class="this-public"></span> </span>
+							</div>
+							<div class="block4-right">
+								<div class="news-title"> <a href=""></a></div>
+								<div class="news-content"></div>
+							</div>
+						</div>
+						<div class="news-control-block">
+							<div class="news-control">
+								<button type="button" class="btn-news-left" ><</button>
+								<button type="button" class="btn-news-right">></button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			 
+		</div>
+ 	
+	
+  </body>
+ 
+</html>
