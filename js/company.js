@@ -17,7 +17,10 @@ $(function(){
 			$('.wrapper-list_companies').css("display","block");
 			
 			global_response = res;
-			printCompany(global_response);
+			var displayIn  = 'ul-list_companies'; //I specify where to display the data
+			printTotalCompanies(global_response);
+			printCompany(global_response['list'], displayIn);
+			printChart(global_response);
 			
 			
         },
@@ -248,21 +251,27 @@ function validate_news_date(dateValidate){
 
 }
 
-
-function printCompany(res){
+function printTotalCompanies(res){
 var count = 0;
 	for (var i=0; i < res['list'].length; i++ ) {
-		$(".ul-list_companies").append('<li onClick="describeCompany(this.id);return false;" id="'+count+'">'+res['list'][i]['name']+'</li>'); 
 		count +=1;
 	}
 $(".circle").html(count); 
- 		
+}
+
+function printCompany(res, className){
+
+	for (var i=0; i < res.length; i++ ) {
+		$("."+className).append('<li onClick="describeCompany(this.id);return false;" id="'+i+'">'+res[i]['name']+'</li>'); 
+		
+	}
+
 }
 
 
 // highlight a list item active
 $(function() { 
-    $('.ul-list_companies').on('click', 'li', function(event) {
+    $('.highlight-li').on('click', 'li', function(event) {
          $(this).addClass("active").siblings().removeClass("active");   
          event.preventDefault();
     });
@@ -415,6 +424,114 @@ var a=0; // start position
 }
 
 
+
+function getUniqueLocation(countryData){
+var global_response = countryData;
+
+	var dataCountry = [];
+	//I write  all the cities in the array
+	for(var i=0; i < global_response['list'].length; i++){
+		dataCountry[i] = global_response['list'][i].location.name;
+	}
+
+	var uniqueCountry = {}
+	//I make a list of unique cities and the number of repeats
+	for(var i=0; i < dataCountry.length; i++){
+		var currentCountry = dataCountry[i];
+		
+		if(uniqueCountry.hasOwnProperty(currentCountry)){
+			uniqueCountry[currentCountry] +=1;
+		}
+		
+		if(!uniqueCountry.hasOwnProperty(currentCountry)){
+			uniqueCountry[currentCountry] = 1;
+		}
+		
+	}
+	
+	return uniqueCountry;
+}
+
+
+
+//I edit the data that will go to chart
+function preparation_data_toChart(uniqueCountry){
+	
+	var dataToChart = [];
+	var index=0;
+	for(var key in uniqueCountry){
+		dataToChart[index] = {'y':uniqueCountry[key], 'indexLabel':[key][0]};
+		index ++;
+	}
+	return dataToChart;
+}
+
+
+//by clicking to the area of chart - display the names by similar location
+function Describe_Chart_area(params){
+	
+var country = params;
+var outputData = {};
+
+	if(country){
+		
+		$('#chartContainer').css('display','none');
+		$('.btn-to-chart').css('display','block');
+	
+		$('.chartCountry').html(country+':');
+		var index = 0; // just for beauty index
+		for(var i=0; i < global_response['list'].length; i++){
+			if(global_response['list'][i].location.name == country){
+				outputData[index] = global_response['list'][i].name;
+				index ++ ;
+			}
+		}
+		
+		for (var key in outputData) {
+			$(".ul-list_chart").append('<li>'+outputData[key]+'</li>'); 
+		}
+			
+		
+	}
+	
+}
+
+
+function printChart(global_response){
+	
+	//obtaining data to chart
+	var unique = getUniqueLocation(global_response);
+	var dataToChart = preparation_data_toChart(unique);
+	
+	
+	// draw the chart on data obtained me
+	var chart = new CanvasJS.Chart("chartContainer",
+	{
+		theme: "theme2",
+		title:{
+			
+		},
+		data: [
+		{	
+			click: function(e){
+				//alert( ' ( '+e.dataPoint.indexLabel+' ) ' + e.dataSeries.type+ ", dataPoint { x:" + e.dataPoint.x + ", y: "+ e.dataPoint.y + " }" );
+				Describe_Chart_area(e.dataPoint.indexLabel);
+			},
+			type: "pie",
+			showInLegend: true,
+			toolTipContent: "{y} - #percent %",
+			yValueFormatString: "Город",
+			legendText: "{indexLabel}",
+			dataPoints: dataToChart
+		}
+		]
+	});
+	chart.render();	
+	
+}
+
+
+
 $(document).ready(function(){
 	
 		//trigger change (sorted by name)
@@ -430,5 +547,20 @@ $(document).ready(function(){
 			sorting_percent();
 			
 		})
+		
+		
+		$('.btn-to-chart').click(function() {
+			$("#chartContainer").empty()
+			$('#chartContainer').css('display','block');
+			printChart(global_response);
+			$(".ul-list_chart").empty()
+			$('.btn-to-chart').css('display','none');
+			
+		})
+		
 	
+		
 });
+
+
+

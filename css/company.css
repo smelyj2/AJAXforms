@@ -24,7 +24,7 @@ footer, header, hgroup, menu, nav, section {
     display: block;
 }
 body {
-    line-height: 1;
+    line-height: 1; 
 }
 ol, ul {
     list-style: none;
@@ -132,7 +132,6 @@ overflow:hidden;
 
 }
 .list_companies{
-
 width:100%;
 position:relative;
 border: 1px solid #c0c0c0;
@@ -142,7 +141,7 @@ overflow-y:scroll;
 
 }
 
-.ul-list_companies li{
+.ul-list_companies li, .ul-list_chart li{
 border-bottom: 1px solid #4f4f4f;
 height:25px;
 padding-left:7px;
@@ -385,4 +384,65 @@ margin-left:280px;
 }
 .this-author, .this-public{
 font-weight:500;	
+}
+
+.describeChart{
+height: 214px; 
+width: 445px;
+
+padding:10px;	
+}
+.chartCountry{
+padding-bottom:5px;	
+}
+
+
+.list_chart{
+width:100%;
+position:relative;
+border: 1px solid #c0c0c0;
+height:165px;
+overflow:hidden;
+overflow-y:scroll;
+
+}
+.to-chart{
+float:right;	
+}
+
+.btn-to-chart{
+display:none;	
+}
+
+
+
+
+@media (max-width: 1000px) { 
+	.wrapper{
+	width: 520px;
+
+	}
+	.describe-block{
+		margin-left:-20px;
+		width:540px;
+		float:left;
+		
+	}
+	.line1, .line2{
+		
+	}
+	.block1, .block2, .block3, .block4{
+		
+		float:left;
+		clear:left;
+	}
+}
+
+@media (max-width: 580px) { 
+.describe-block{
+		margin-left:0;
+		width:480px;
+		
+		
+	}
 }

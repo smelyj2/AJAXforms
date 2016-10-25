@@ -16,12 +16,13 @@
 		<script src="bootstrap/js/bootstrap.min.js"></script>
 		<!--!END bootstrap-->
 		
+		<script src="js/canvasjs.min.js"></script>
+		
 		<title>Company CoderIt</title>
    </head>
 
    <body>
 	
-   
 		<div class="wrapper">
 		
 			<div class="line1">
@@ -35,9 +36,8 @@
 					<div class="block-title"><div class="title">List of Companies</div></div>
 					<div class="wrapper-list_companies" style="display:none;">
 						<div class="list_companies" >
-							<ul class="ul-list_companies">
-								
-								
+							<ul class="ul-list_companies highlight-li">
+																
 							</ul>
 						</div>
 						
@@ -83,9 +83,22 @@
 				
 			<div class="line2">
 				<div class="block3">
-					<div class="block-title"><div class="title">Companies by Location</div></div>
+					<div class="block-title">
+						<div class="title">Companies by Location</div>
+						<div class="to-chart"> <button type="button" class="btn-to-chart" > &#9668; </button> </div>
+					</div>
 					
 					<div class="loader" ></div> <!-- loader block-->
+					
+					<div id="chartContainer" style="height: 214px; width: 445px; " ></div> <!-- chart -->
+					<div class="describeChart">
+						<div class="chartCountry my-bold"></div>
+						<div class="list_chart" >
+							<ul class="ul-list_chart highlight-li">
+															
+							</ul>
+						</div>
+					</div>
 				</div>
 				
 				<div class="block4">
