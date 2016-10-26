@@ -1,5 +1,4 @@
 
-
 function validateName(input) {
 	
 	if (input.value.length < 3) {
@@ -10,12 +9,12 @@ function validateName(input) {
 }
 
 
-function checkPassword(n1, n2) {
+function checkPassword(userName, secondName) {
 	
-	if (n1.value != n2.value) {
-		n2.setCustomValidity('Names do not match');
+	if (userName.value != secondName.value) {
+		secondName.setCustomValidity('Names do not match');
 	}else {
-		n2.setCustomValidity('');
+		secondName.setCustomValidity('');
 	}
 }
 
@@ -37,11 +36,11 @@ function validPass(global_errors){
 }
 
 function validName(global_errors){
-	if (document.getElementById('inp1').value == "" || document.getElementById('inp1').value.length < 3 ) {
+	if (document.getElementById('userName').value == "" || document.getElementById('userName').value.length < 3 ) {
 			return true;
 		
 	};
-	if (document.getElementById('inp1').value != document.getElementById('inp2').value) {
+	if (document.getElementById('userName').value != document.getElementById('secondName').value) {
 			return true;
 		
 	};
@@ -78,6 +77,7 @@ function validGender(global_errors){
 			
 		//If the form is completed correctly then sends a request
 		if(!validCheckBox() && !validName() && !validMail() && !validGender() && !validPass()) {
+			console.log('3s');
 			var msg = $('#myForm').serialize();
 			$.ajax({
 				type: 'POST',

@@ -6,10 +6,12 @@
    <head>
 		   
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<link rel="stylesheet" href="css/reset.css"> 
+		
 		<script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
 		
 		<script type="text/javascript" src="js/script.js"></script> 
-		<link rel="stylesheet" href="css/style.css"> 
+		<link rel="stylesheet" href="css/index.css"> 
 		
 		<!-- Bootstrap-->
 		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
@@ -35,32 +37,32 @@
 				<div class="wrapper-btn"> 
 					  <div class="input-group">
 						<span class="input-group-addon glyphicon glyphicon-user"></span>
-						<input type="text" class="form-control" id="inp1" name="name" placeholder="Username" required  oninput="validateName(this);" maxlength="60" pattern='^[a-zA-Z]+$' >
+						<input type="text" class="form-control" id="userName" name="name" placeholder="Username" required  oninput="validateName(this);" maxlength="60" pattern='^[a-zA-Z]+$' >
 					  </div>
-					  <br />
+					 
 					   <div class="input-group">
 						<span class="input-group-addon glyphicon glyphicon-user"></span>
-						<input type="text" class="form-control" id="inp2" name="secondname" placeholder="Username"  required  oninput="validateName(this); checkPassword(document.getElementById('inp1'), this);" maxlength="60" pattern='^[a-zA-Z]+$' >
+						<input type="text" class="form-control" id="secondName" name="secondname" placeholder="Username"  required  oninput="validateName(this); checkPassword(document.getElementById('userName'), this);" maxlength="60" pattern='^[a-zA-Z]+$' >
 					  </div>
-					  <br />
+					
 					   <div class="input-group">
 						<span class="input-group-addon glyphicon glyphicon-envelope"></span>
 						<input type="email" id="email" class="form-control" name="email" placeholder="Email" required>
 					  </div>
-					  <br />
-					  <div class="">
+					
+					  <div class="my-padding" >
 						  <select  class="form-control" id="gender"  name="gender" required>
 						    <option value="">-- Select your gender --</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
 						  </select>
 					  </div>
-					   <br />
+					
 					   <div class="input-group">
 						<span class="input-group-addon glyphicon glyphicon-asterisk"></span>
 						<input type="text" class="form-control" required name="pass" id="pass" placeholder="Password" >
 					  </div>
-					  <br />
+					
 					  <div class="">
 						<div class="checkbox" >
 							<label ><input type="checkbox" id="myChek" required > Conditions of Agreement</label>

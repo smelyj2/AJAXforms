@@ -3,7 +3,7 @@ var current_data = {} ; // future global data object with current state of partn
 var global_news = {};  // future global data object came from the server with NEWS
 
 //companies data
-$(function(){  
+function get_company_data(){
    
     $.ajax({
         type: 'POST',
@@ -30,11 +30,11 @@ $(function(){
     });
 
 	
-});
+}
 
 
 //news data
-$(function(){  
+function get_news_data(){
     $.ajax({
         type: 'POST',
         url: 'http://codeit.pro/frontTestTask/news/getList',
@@ -51,7 +51,7 @@ $(function(){
         }
     });
 	
-});
+}
 
 
 //by clicking on the company creating a block with a detailed description of the company
@@ -82,14 +82,16 @@ function describeCompany(id){
 //It displays all the data about the partner companies
 function display_company_partners(current_data, id){
 	$(".describe-content").remove(); // I delete the last company's to display new
+	
 	for(var keyID in current_data){
+	
 			if(keyID == id){
 				for(var keyCompany in current_data[keyID]){
-					//console.log(current_data[keyID][keyCompany].company + " : " + current_data[keyID][keyCompany].value);
 					var company = current_data[keyID][keyCompany].company;
 					var value = current_data[keyID][keyCompany].value;
 					
 					draw_company_element(company, value, id); 
+					
 				}
 			}
 		}
@@ -111,6 +113,7 @@ function save_current_state(sort_array, id, current_data){
 			company_data[i] =  {'company':sort_array[i].company, 'value':sort_array[i].value};
 		}
 		current_data[id] = company_data;
+		
 	
 }
 
@@ -189,8 +192,15 @@ function printNews(res, index){
 	$(".news-title > a").empty();
 	$(".news-content").empty();
 	
+	
 	//second - print to html
-	$(".news-img").attr("src",res['list'][index].img); 
+	//$(".news-img").attr("src",res['list'][index].img); 
+	
+		
+	var url = res['list'][index].img; 
+	$(".news-img").css('background','url('+url+')'); 
+	
+
 	$(".this-author").append(res['list'][index].author);
 	
 	//validate Date from millisecond to current Date
@@ -278,10 +288,11 @@ $(function() {
 });
 
 
-
-function sort_name(){
-/*The principle of this function Sorting: get object to sort, copy it into an array,
+function my_sort(sortId, sortProperty){
+	/*The principle of this function Sorting: get object to sort, copy it into an array,
  sort and return the sorted object to object with all the data.	*/
+ /* And Sorting percent, is similar . */
+	var sortProperty = sortProperty;
 	var currentID = $(".describe-content").attr("relation-id");
 		
 		var temp_array = []; // Array for sorting
@@ -293,24 +304,24 @@ function sort_name(){
 		}
 		
 		//I define a dsc or asc sorting
-		var trigger_sort = $('#stateInput').prop('checked');
+		var trigger_sort = $('#'+sortId).prop('checked');
 		
 		//asc sorting
 		if(trigger_sort == true) {
 			// sorting an array
 			temp_array.sort(function(obj2, obj1) {
-			  if(obj1.company < obj2.company) return 1;
-			  if(obj1.company > obj2.company) return -1;
-			  return 0;
+			  if(obj1[sortProperty] < obj2[sortProperty]) return 1;
+			  if(obj1[sortProperty] > obj2[sortProperty]) return -1;
+			   return 0;
 			});
 		}
-		
+		 
 		//dsc sorting
 		if(trigger_sort == false) {
 			// sorting an array
 			temp_array.sort(function(obj1, obj2) {
-			  if(obj1.company < obj2.company) return 1;
-			  if(obj1.company > obj2.company) return -1;
+			  if(obj1[sortProperty] < obj2[sortProperty]) return 1;
+			  if(obj1[sortProperty] > obj2[sortProperty]) return -1;
 			  return 0;
 			});
 		}
@@ -321,67 +332,19 @@ function sort_name(){
 		for(var i=0; i < temp_array.length; i++){
 			temp_obj2[i] = {'company':temp_array[i].company, 'value':temp_array[i].value}
 		}	
-
+		
 		//sorted data put at their previous place
 		current_data[currentID] = temp_obj2;
 		
 		//displaying sorted data
 		display_company_partners(current_data, currentID);
+		
+	
 	
 }
 
 
 
-function sorting_percent(){
-/* Sorting percent, similar to sorting by name. */
-	var currentID = $(".describe-content").attr("relation-id");
-		
-		var temp_array = []; // Array for sorting
-		var temp_obj = current_data[currentID]; //the object that I want to sort
-		
-		//I rewrite the object to an array
-		for(var key in temp_obj){
-			temp_array.push(temp_obj[key]);
-		}
-		
-		//I define a dsc or asc sorting
-		var trigger_sort = $('#stateInputPercent').prop('checked');
-		
-		//asc sorting
-		if(trigger_sort == true) {
-			// sorting an array
-			temp_array.sort(function(obj2, obj1) {
-			  if(obj1.value < obj2.value) return 1;
-			  if(obj1.value > obj2.value) return -1;
-			  return 0;
-			});
-		}
-		
-		//dsc sorting
-		if(trigger_sort == false) {
-			// sorting an array
-			temp_array.sort(function(obj1, obj2) {
-			  if(obj1.value < obj2.value) return 1;
-			  if(obj1.value > obj2.value) return -1;
-			  return 0;
-			});
-		}
-		
-		
-		//I copy an array to an object
-		var temp_obj2 = {};	
-		for(var i=0; i < temp_array.length; i++){
-			temp_obj2[i] = {'company':temp_array[i].company, 'value':temp_array[i].value}
-		}	
-
-		//sorted data put at their previous place
-		current_data[currentID] = temp_obj2;
-		
-		//displaying sorted data
-		display_company_partners(current_data, currentID);
-
-	
-}
 
 
 function initNewsButton(dataLength){
@@ -519,8 +482,8 @@ function printChart(global_response){
 			},
 			type: "pie",
 			showInLegend: true,
-			toolTipContent: "{y} - #percent %",
-			yValueFormatString: "Город",
+			toolTipContent: "{y}  #percent %",
+			yValueFormatString: " ",
 			legendText: "{indexLabel}",
 			dataPoints: dataToChart
 		}
@@ -533,19 +496,25 @@ function printChart(global_response){
 
 
 $(document).ready(function(){
+	get_company_data();
+	get_news_data();
 	
 		//trigger change (sorted by name)
 		$('#stateInput').change(function() {
 			//sort by Name, descending/ascending
-			sort_name();
-				
+			
+			var sortId = 'stateInput';
+			var sortProperty = 'company';
+			my_sort(sortId, sortProperty);
 		})
 				
 		//trigger change (sorted by perscent)
 		$('#stateInputPercent').change(function() {
 			//sort by Perscent, descending/ascending
-			sorting_percent();
 			
+			var sortId = 'stateInputPercent';
+			var sortProperty = 'value';
+			my_sort(sortId, sortProperty);
 		})
 		
 		
