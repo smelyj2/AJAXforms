@@ -1,83 +1,82 @@
 
-function validateName(input) {
+function chckMyForm(){
 	
-	if (input.value.length < 3) {
-		input.setCustomValidity("At least 3 symbols");   
-	}else {
-		input.setCustomValidity("");
-	}
-}
-
-
-function checkPassword(userName, secondName) {
-	
-	if (userName.value != secondName.value) {
-		secondName.setCustomValidity('Names do not match');
-	}else {
-		secondName.setCustomValidity('');
-	}
-}
-
-
-
-
-function validCheckBox(global_errors){
-	if(!document.getElementById("myChek").checked){
-			return true;
-		
-	}
-}
-
-
-function validPass(global_errors){
-	if (document.getElementById('pass').value == "" ) {
-			return true;
-	};
-}
-
-function validName(global_errors){
-	if (document.getElementById('userName').value == "" || document.getElementById('userName').value.length < 3 ) {
-			return true;
-		
-	};
-	if (document.getElementById('userName').value != document.getElementById('secondName').value) {
-			return true;
-		
-	};
-}
-
-function validMail(global_errors){
-	var re = /^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i;
-    var myMail = document.getElementById('email').value;
-    var valid = re.test(myMail);
-	if(!valid){
-			return true;
-		
-	}
-}
-
-function validGender(global_errors){
-	if (gender.options[gender.selectedIndex].value == "" ){
-		return true;
-		
-	}
-}
+var	errors_list = []; // for errors
+var elem; //  element on the form
+var elemsName; // name of the element 
+var value; // the value entered in a form element
+var type; //  form elements type attribute
 
 	
-	// sending the form data to the server and error handling
-	function senddata(event) {
+	// I pass all the elements of the form
+	for (var i = 0; i < myForm.elements.length; i++){
+		elem = myForm.elements[i];	
+		elemsName = elem.nodeName.toLowerCase();		
+		value = elem.value;
+	
+	
+		// INPUT validation on form
+		if (elemsName == "input") {
+			type = elem.type.toLowerCase();
+			
+			// sort out all types of INPUT attributes
+			switch (type) {
+				
+				case "text" :
+					if (elem.name == "name" && value == "" || elem.name == "name" && value.length < 3) errors_list.push(1); 
+					break; 
+									 
+				case "email" :
+					
+					var re = /^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i;
+					var myMail = elem.value;
+					var valid = re.test(myMail);
+					if(!valid){
+						errors_list.push(2)
+					}
+					break;
+					
+				case "password" :
+					if (elem.name == "pass" && value == "") errors_list.push(3); 
+					 break; 
+				 
+				case "checkbox" :
+					if (!elem.checked) errors_list.push(4);
+					break;
+			}	
+			
+			
+		}	
+		
+		//check the select
+		if(elemsName == "select") { 
+			if (value == 0) errors_list.push(5);
+		} 
+		
+		
+	}
+
+	
+		if (!errors_list.length) {
+			return true;
+		}else{
+			return false;
+		} 
+	
+	
+}
+
+
+	
+// sending the form data to the server and error handling
+function senddata(event) {
 		event.preventDefault(); 
 		
-		//checking  form on the client side for correct filling
-		validCheckBox();
-		validName();
-		validMail();
-		validGender();
-		validPass();
-			
-		//If the form is completed correctly then sends a request
-		if(!validCheckBox() && !validName() && !validMail() && !validGender() && !validPass()) {
-			console.log('3s');
+		console.log(chckMyForm());
+	
+		
+		//If the form is completed correctly then sends a request	
+		if(chckMyForm){	
 			var msg = $('#myForm').serialize();
 			$.ajax({
 				type: 'POST',
@@ -110,16 +109,8 @@ function validGender(global_errors){
 				}
 			});
 			
+	
 		}
-		
 
-	}
+}
 
-
-
-$(document).ready(function(){
-
-
- 	
-		
-});

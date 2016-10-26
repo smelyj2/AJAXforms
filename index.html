@@ -37,12 +37,13 @@
 				<div class="wrapper-btn"> 
 					  <div class="input-group">
 						<span class="input-group-addon glyphicon glyphicon-user"></span>
-						<input type="text" class="form-control" id="userName" name="name" placeholder="Username" required  oninput="validateName(this);" maxlength="60" pattern='^[a-zA-Z]+$' >
+						<input type="text" class="form-control" id="userName" name="name" placeholder="Username" required  maxlength="60" pattern='^[a-zA-Z]+$' >
 					  </div>
 					 
 					   <div class="input-group">
 						<span class="input-group-addon glyphicon glyphicon-user"></span>
-						<input type="text" class="form-control" id="secondName" name="secondname" placeholder="Username"  required  oninput="validateName(this); checkPassword(document.getElementById('userName'), this);" maxlength="60" pattern='^[a-zA-Z]+$' >
+						<input type="text" class="form-control" id="secondName" name="secondname" placeholder="secondName"  required   maxlength="60" pattern='^[a-zA-Z]+$' >
+						
 					  </div>
 					
 					   <div class="input-group">
@@ -60,7 +61,7 @@
 					
 					   <div class="input-group">
 						<span class="input-group-addon glyphicon glyphicon-asterisk"></span>
-						<input type="text" class="form-control" required name="pass" id="pass" placeholder="Password" >
+						<input type="password" class="form-control" required name="pass" id="pass" placeholder="Password" >
 					  </div>
 					
 					  <div class="">
