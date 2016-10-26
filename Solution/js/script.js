@@ -38,7 +38,7 @@ var type; //  form elements type attribute
 					
 				case "password" :
 					if (elem.name == "pass" && value == "") errors_list.push(3); 
-					 break; 
+					break; 
 				 
 				case "checkbox" :
 					if (!elem.checked) errors_list.push(4);
@@ -72,7 +72,7 @@ var type; //  form elements type attribute
 function senddata(event) {
 		event.preventDefault(); 
 		
-		console.log(chckMyForm());
+		chckMyForm();
 	
 		
 		//If the form is completed correctly then sends a request	
