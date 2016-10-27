@@ -85,19 +85,14 @@ function describeCompany(id){
 function display_company_partners(current_data, id){
 	$(".describe-content").remove(); // I delete the last company's to display new
 	
-	for(var keyID in current_data){
-	
-			if(keyID == id){
-				for(var keyCompany in current_data[keyID]){
-					var company = current_data[keyID][keyCompany].company;
-					var value = current_data[keyID][keyCompany].value;
-					
+		if(current_data[id]){
+			for(var keyCompany in current_data[id]){
+				var company = current_data[id][keyCompany].company;
+				var value = current_data[id][keyCompany].value;
 					draw_company_element(company, value, id); 
-					
-				}
 			}
 		}
-	
+		
 }
 
 
