@@ -83,7 +83,7 @@ function senddata(event) {
 				url: 'https://codeit.pro/frontTestTask/user/registration',
 				data: msg,
 				success: function(data) {
-					var res = JSON.parse(data);
+					var res = data;
 						if (res['status']=='Error'){
 							var regV = /Email already exist/gi;
 							var result = res['message'].match(regV); 
