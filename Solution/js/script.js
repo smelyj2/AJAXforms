@@ -80,7 +80,7 @@ function senddata(event) {
 			var msg = $('#myForm').serialize();
 			$.ajax({
 				type: 'POST',
-				url: 'http://codeit.pro/frontTestTask/user/registration',
+				url: 'https://codeit.pro/frontTestTask/user/registration',
 				data: msg,
 				success: function(data) {
 					var res = JSON.parse(data);
