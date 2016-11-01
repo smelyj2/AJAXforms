@@ -7,7 +7,7 @@ function get_company_data(){
    
     $.ajax({
         type: 'POST',
-        url: 'http://codeit.pro/frontTestTask/company/getList',
+        url: 'https://codeit.pro/frontTestTask/company/getList',
         success: function(data) {
 			var res = data;
 			
@@ -37,7 +37,7 @@ function get_company_data(){
 function get_news_data(){
     $.ajax({
         type: 'POST',
-        url: 'http://codeit.pro/frontTestTask/news/getList',
+        url: 'https://codeit.pro/frontTestTask/news/getList',
         success: function(data) {
 				global_news  = data;
 				printNews(global_news);
